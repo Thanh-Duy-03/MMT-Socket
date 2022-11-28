@@ -197,7 +197,9 @@ public class ClientMenu extends JFrame implements ActionListener {
             path = path.toAbsolutePath();
             String picPath = path.toString();
             
-            Runtime.getRuntime().exec("powershell \"Start-Process "+picPath + "\"");
+            ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c", "powershell \"Start-Process "+picPath + "\"");
+            Process p = builder.start();
+            //Runtime.getRuntime().exec("powershell \"Start-Process "+picPath + "\"");
 
         } catch (Exception ex) {
             ex.printStackTrace();

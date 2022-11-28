@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
+import javax.management.Query;
 
 import java.util.Base64;
 
@@ -96,7 +97,9 @@ public class ServerRunner {
             else
                 cmd = "powershell \"Stop-Process -Name \""+ recv + "\" -Force\"";
 
-            Runtime.getRuntime().exec(cmd);
+            ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c", cmd);
+            Process p = builder.start();
+            //Runtime.getRuntime().exec(cmd);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -110,7 +113,9 @@ public class ServerRunner {
             if (!isNumeric(recv))
                 cmd = "powershell \"Start-Process "+ recv + "\"";
 
-            Runtime.getRuntime().exec(cmd);
+            ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c", cmd);
+            Process p = builder.start();
+            //Runtime.getRuntime().exec(cmd);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -118,9 +123,10 @@ public class ServerRunner {
 
     private void ListProcess() {
         try {
-            String line;
-            Process p = Runtime.getRuntime().exec("powershell \"gps | select ProcessName,Id\"");
+            ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c", "powershell \"gps | select ProcessName,Id\"");
+            Process p = builder.start();
             BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line;
             int i = 0;
             while ((line = input.readLine()) != null) {
                 if (i > 2) {
@@ -148,9 +154,12 @@ public class ServerRunner {
 
     private void ListApp() {
         try {
-            String line;
-            Process p = Runtime.getRuntime().exec("powershell \"gps | where {$_.MainWindowHandle -ne 0 } | select ProcessName,Id\"");
+            ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c", "powershell \"gps | where {$_.MainWindowHandle -ne 0 } | select ProcessName,Id\"");
+            Process p = builder.start();
             BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line;
+            //Process p = Runtime.getRuntime().exec("powershell \"gps | where {$_.MainWindowHandle -ne 0 } | select ProcessName,Id\"");
+            //BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
             int i = 0;
             while ((line = input.readLine()) != null) {
                 if (i > 2) {
@@ -216,7 +225,9 @@ public class ServerRunner {
             out.close();
             br.close();
             bw.close();
-            Runtime.getRuntime().exec("shutdown /s /t 5");
+            ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c", "shutdown /s /t 5");
+            Process p = builder.start();
+            //Runtime.getRuntime().exec("shutdown /s /t 5");
             System.exit(0);
         } catch (Exception ex) {
             System.out.println("Unable to shutdown");
