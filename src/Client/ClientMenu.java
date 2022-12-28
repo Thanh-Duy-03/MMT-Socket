@@ -1,13 +1,19 @@
 package Client;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.ImageIcon;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
+import java.awt.GridBagLayout;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.GridBagConstraints;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.net.*;
@@ -22,6 +28,9 @@ public class ClientMenu extends JFrame implements ActionListener {
     private JButton jbShutdown;
     private JButton jbListen;
     private JTextField jtHost;
+    private JLabel jlTitle;
+    private JLabel label;
+    private JLabel jlTitleGroupName;
 
     private Socket client = null;
     private InputStreamReader in = null;
@@ -56,53 +65,120 @@ public class ClientMenu extends JFrame implements ActionListener {
         });
 
         this.setLayout(null);
-        this.setSize(314, 200);
+        this.setSize(450, 450);
+       
         this.initComponents();
         this.setVisible(true);
     }
 
     private void initComponents() {
-        JPanel Panel1 = new JPanel();
-        Panel1.setBounds(0, 0, 300, 40);
+        JPanel Panel0 = new JPanel();
+        Panel0.setBounds(0, 0, 450, 120);
+        jlTitle = new JLabel("Socket Remote Controller");
+        jlTitle.setFont(new Font("Serif", Font.BOLD, 36));
+        jlTitleGroupName = new JLabel("21CLC01 - Group 12");
+        jlTitleGroupName.setFont(new Font("Serif", Font.BOLD, 24));
+        
+        Panel0.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 0;
+        Panel0.add(jlTitle,c);
+        
+        c.gridx = 0;
+        c.gridy = 1;
+        Panel0.add(jlTitleGroupName, c);
 
-        jbConnect = new JButton("Connect");
+        // c.gridx = 0;
+        // c.gridy = 0;
+        // c.fill = GridBagConstraints.BOTH;
+        // label = new JLabel();
+        // label.setPreferredSize(new Dimension(40, 40));
+        // ImageIcon imgIcon = new ImageIcon("logo.png");
+        // Image img = imgIcon.getImage();
+        // Image imgScaled = img.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+        // label.setIcon(new ImageIcon(imgScaled));
+        // Panel0.add(label, c);
+
+
+        JPanel Panel1 = new JPanel();
+        Panel1.setBounds(0, 120, 450, 50);
+
+        ImageIcon IIconnect = new ImageIcon("assets/antenna.png");
+        jbConnect = new JButton("Connect", IIconnect);
         jbConnect.addActionListener(this);
         
         jtHost = new JTextField("Enter host IP");
-        jtHost.setPreferredSize(new Dimension(200,27));
+        jtHost.setPreferredSize(new Dimension(300,27));
+
+
 
         Panel1.add(jbConnect);
         Panel1.add(jtHost);
 
+        ImageIcon IIshutdown = new ImageIcon("assets/shutdown.png");
+        ImageIcon IIscreenshot = new ImageIcon("assets/screenshot.png");
+        ImageIcon IIkeylogger = new ImageIcon("assets/keylogger.png");
+        ImageIcon IIprocess = new ImageIcon("assets/process.png");
+        ImageIcon IIapp = new ImageIcon("assets/categories.png");
+     
+
         JPanel Panel2 = new JPanel();
-        Panel2.setBounds(0, 40, 300, 160);
+        Panel2.setBounds(20, 170, 150, 200);
+        Panel2.setLayout(new GridBagLayout());
 
-        jbListen = new JButton("Listen");
-        jbShutdown = new JButton("Shutdown");
-        jbScreenShot = new JButton("Screen shot");
-        jbListProcess = new JButton("List Process");
-        jbListApp = new JButton("List Application");
+        jbListen = new JButton("Keylogger", IIkeylogger);
+        jbShutdown = new JButton("Shutdown", IIshutdown);
+        jbScreenShot = new JButton("Screen shot",IIscreenshot);
+        jbListProcess = new JButton("List Process", IIprocess);
+        jbListApp = new JButton("List Application", IIapp);
 
-        jbListen.setPreferredSize(new Dimension(120, 30));
-        jbShutdown.setPreferredSize(new Dimension(120, 30));
-        jbScreenShot.setPreferredSize(new Dimension(120, 30));
-        jbListProcess.setPreferredSize(new Dimension(120, 30));
-        jbListApp.setPreferredSize(new Dimension(120, 30));
-
+        jbListen.setPreferredSize(new Dimension(150, 30));
+        jbShutdown.setPreferredSize(new Dimension(150, 30));
+        jbScreenShot.setPreferredSize(new Dimension(150, 30));
+        jbListProcess.setPreferredSize(new Dimension(150, 30));
+        jbListApp.setPreferredSize(new Dimension(150, 30));
+        
         jbListApp.addActionListener(this);
         jbListProcess.addActionListener(this);
         jbListen.addActionListener(this);
         jbScreenShot.addActionListener(this);
         jbShutdown.addActionListener(this);
-        
-        Panel2.add(jbShutdown);
-        Panel2.add(jbScreenShot);
-        Panel2.add(jbListProcess);
-        Panel2.add(jbListApp);
-        Panel2.add(jbListen);
 
+        GridBagConstraints c1 = new GridBagConstraints();
+        c1.gridx = 0;
+        c1.weighty = 1.0;
+        
+        Panel2.add(jbListProcess,c1);
+        Panel2.add(jbListApp,c1);
+        Panel2.add(jbScreenShot,c1);
+        Panel2.add(jbListen,c1);
+        Panel2.add(jbShutdown,c1);
+
+
+        JPanel Panel3 = new JPanel();
+        Panel3.setBounds(190, 150, 240, 300);
+        label = new JLabel();
+        label.setPreferredSize(new Dimension(150, 150));
+        ImageIcon imgIcon = new ImageIcon("assets/logo.png");
+        Image img = imgIcon.getImage();
+        Image imgScaled = img.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        label.setIcon(new ImageIcon(imgScaled));
+        Panel3.add(label);
+
+
+        JLabel nnq = new JLabel("Nguyễn Nhật Quang - 21127151");
+        JLabel ttd = new JLabel("Trần Thành Duy - 21127033");
+        JLabel tmk = new JLabel("Trần Minh Khoa - 21127629");
+        Panel3.add(nnq);
+        Panel3.add(ttd);
+        Panel3.add(tmk);
+
+        //Add all panels
+        this.add(Panel0);
         this.add(Panel1);
         this.add(Panel2);
+        this.add(Panel3);
     }
 
     public void actionPerformed(ActionEvent evt) {

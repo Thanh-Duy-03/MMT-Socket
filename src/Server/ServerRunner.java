@@ -9,7 +9,6 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
-import javax.management.Query;
 
 import java.util.Base64;
 
@@ -77,6 +76,46 @@ public class ServerRunner {
             }
         }        
     }
+
+    // public void runServer() throws IOException {
+    //     //Tạo Socket mới ở port 1234
+    //     ss = new ServerSocket(1234);
+        
+    //     //Đợi Client kết nối
+    //     while (true) {
+    //         try {
+    //             System.out.println("Waiting for client...");
+    //             s = ss.accept();
+    //             System.out.println("Client accepted");
+                
+    //             //Khởi tạo các biến đọc/ghi Buffer/Stream
+    //             in = new InputStreamReader(s.getInputStream());
+    //             out = new OutputStreamWriter(s.getOutputStream());
+    //             br = new BufferedReader(in, 2048);
+    //             bw = new BufferedWriter(out, 2048);
+
+    //             while (true) {
+    //                 //Đợi data từ client
+    //                 String recv = br.readLine();
+    //                 System.out.println(recv);
+    //                 //Xử lý data
+    //                 if(!HandleCommand(recv)) break;
+    //             }
+    //             //Đóng Socket khi Client ngắt kết nối
+    //             s.close();
+    //         } catch (Exception ex) {
+    //             //Ngắt các kết nối khi bị lỗi để thử lại
+    //             System.out.println("Something went wrong!");
+    //             s.close();
+    //             ss.close();
+    //             in.close();
+    //             out.close();
+    //             br.close();
+    //             bw.close();
+    //             break;
+    //         }
+    //     }        
+    // }
 
     private boolean isNumeric(String str) {
         try {

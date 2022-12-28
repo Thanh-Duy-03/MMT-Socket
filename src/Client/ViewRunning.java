@@ -5,6 +5,7 @@ import java.io.*;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,6 +15,9 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class ViewRunning extends JFrame {
+    private ImageIcon IIstart;
+    private ImageIcon IIstop;
+    private ImageIcon IIdownload;
     public ViewRunning(String type, BufferedReader br, BufferedWriter bw) {
         this.type = type;
         this.br = br;
@@ -23,6 +27,10 @@ public class ViewRunning extends JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        this.IIstart = new ImageIcon("assets/start.png");
+        this.IIstop = new ImageIcon("assets/stop.png");
+        this.IIdownload = new ImageIcon("assets/download.png");
 
         this.setLayout(null);
         this.setSize(500, 600);
@@ -51,7 +59,7 @@ public class ViewRunning extends JFrame {
         jt.setPreferredScrollableViewportSize(new Dimension(450, 250));
         
         if (type.equals("Process")) {
-            jbList = new JButton("Get Process");
+            jbList = new JButton("Get Process", IIdownload);
             jbList.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
                     getProcess();
@@ -61,7 +69,7 @@ public class ViewRunning extends JFrame {
             table.addColumn("Process name");
         }
         else {
-            jbList = new JButton("Get Application");
+            jbList = new JButton("Get Application", IIdownload);
             jbList.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
                     getApp();
@@ -77,7 +85,7 @@ public class ViewRunning extends JFrame {
         jtID = new JTextField("Enter ID/Name");
         jtID.setBounds(175, 400, 150, 30);
 
-        jbStart = new JButton("Start");
+        jbStart = new JButton("Start", IIstart);
         jbStart.setBounds(150, 440, 200, 30);
         jbStart.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -85,7 +93,7 @@ public class ViewRunning extends JFrame {
             }
         });
 
-        jbStop = new JButton("Stop");
+        jbStop = new JButton("Stop", IIstop);
         jbStop.setBounds(150, 480, 200, 30);
         jbStop.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {

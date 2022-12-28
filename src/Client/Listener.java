@@ -2,6 +2,7 @@ package Client;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -10,10 +11,13 @@ import java.awt.event.WindowAdapter;
 import java.io.*;
 
 public class Listener extends JFrame implements ActionListener {
+    private ImageIcon IIstart;
+    private ImageIcon IIstop;
     public Listener(BufferedReader br, BufferedWriter bw) {
         this.br = br;
         this.bw = bw;
-
+        this.IIstart = new ImageIcon("assets/start.png");
+        this.IIstop = new ImageIcon("assets/stop.png");
         this.pack();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -52,11 +56,11 @@ public class Listener extends JFrame implements ActionListener {
         text.setEditable(false);
         text.setBounds(0, 0, 500, 300);
         
-        jbStart = new JButton("Start listening");
+        jbStart = new JButton("Start listening", IIstart);
         jbStart.setBounds(150, 330, 200, 30);
         jbStart.addActionListener(this);
 
-        jbStop = new JButton("Stop listening");
+        jbStop = new JButton("Stop listening", IIstop);
         jbStop.setBounds(150, 380, 200, 30);
         jbStop.addActionListener(this);
 
